@@ -35,13 +35,8 @@ contract AssetTokenTest is Test {
         implementationV1 = new AssetToken();
 
         // Deploy proxy with V1 implementation
-        bytes memory initData = abi.encodeWithSelector(
-            AssetToken.initialize.selector,
-            "Asset Token",
-            "AST",
-            MAX_SUPPLY,
-            admin
-        );
+        bytes memory initData =
+            abi.encodeWithSelector(AssetToken.initialize.selector, "Asset Token", "AST", MAX_SUPPLY, admin);
 
         proxy = new ERC1967Proxy(address(implementationV1), initData);
         token = AssetToken(payable(address(proxy)));
@@ -138,7 +133,11 @@ contract AssetTokenTest is Test {
 
         // Verify upgrade
         assertEq(
-            address(uint160(uint256(vm.load(address(proxy), 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc)))),
+            address(
+                uint160(
+                    uint256(vm.load(address(proxy), 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc))
+                )
+            ),
             address(implementationV2)
         );
 
@@ -302,4 +301,3 @@ contract AssetTokenTest is Test {
         tokenV2.mint(otherUser, 1);
     }
 }
-

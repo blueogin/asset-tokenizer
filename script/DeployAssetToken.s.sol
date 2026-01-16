@@ -22,13 +22,8 @@ contract DeployAssetToken is Script {
         console.log("V1 Implementation deployed at:", address(implementation));
 
         // Prepare initialization data
-        bytes memory initData = abi.encodeWithSelector(
-            AssetToken.initialize.selector,
-            "Asset Token",
-            "AST",
-            maxSupply,
-            admin
-        );
+        bytes memory initData =
+            abi.encodeWithSelector(AssetToken.initialize.selector, "Asset Token", "AST", maxSupply, admin);
 
         // Deploy proxy with V1 implementation
         ERC1967Proxy proxy = new ERC1967Proxy(address(implementation), initData);
@@ -48,4 +43,3 @@ contract DeployAssetToken is Script {
         vm.stopBroadcast();
     }
 }
-

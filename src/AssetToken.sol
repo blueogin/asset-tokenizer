@@ -39,12 +39,10 @@ contract AssetToken is Initializable, ERC20Upgradeable, AccessControlUpgradeable
      * @param _maxSupply Maximum supply of tokens
      * @param admin Address to receive DEFAULT_ADMIN_ROLE
      */
-    function initialize(
-        string memory name,
-        string memory symbol,
-        uint256 _maxSupply,
-        address admin
-    ) public initializer {
+    function initialize(string memory name, string memory symbol, uint256 _maxSupply, address admin)
+        public
+        initializer
+    {
         __ERC20_init(name, symbol);
         __AccessControl_init();
 
@@ -79,4 +77,3 @@ contract AssetToken is Initializable, ERC20Upgradeable, AccessControlUpgradeable
         emit AdminAction("Upgrade authorized", msg.sender);
     }
 }
-
